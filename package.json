@@ -1,0 +1,23 @@
+{
+  "name": "GP",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "run": "node /Users/ahmedragab/Downloads/GP/test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AhmedRagab99/GP_ML.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AhmedRagab99/GP_ML/issues"
+  },
+  "homepage": "https://github.com/AhmedRagab99/GP_ML#readme",
+  "dependencies": {
+    "python-shell": "^3.0.0"
+  }
+}
