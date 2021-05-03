@@ -4,27 +4,6 @@ import mediapipe as mp
 import time
 
 
-#
-# mpDraw = mp.solutions.drawing_utils
-# mpFaceMesh = mp.solutions.face_mesh
-# faceMesh = mpFaceMesh.FaceMesh(max_num_faces=2)
-# drawSpec = mpDraw.DrawingSpec(thickness=1, circle_radius=2)
-#
-#     imgRGB = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-#
-#
-#     results = faceMesh.process(imgRGB)
-#     if results.multi_face_landmarks:
-#         for faceLms in results.multi_face_landmarks:
-#             mpDraw.draw_landmarks(img, faceLms,mpFaceMesh.FACE_CONNECTIONS,
-#                                   landmark_drawing_spec=drawSpec)
-#
-#             for id, lm in enumerate(faceLms.landmark):
-#                 # print(lm)
-#                 ih,iw,ic = img.shape
-#                 x,y,z,id = int(lm.x*iw),int(lm.y*ih),int(lm.z*ic),int(id)
-#                 print(f"X = {x}", f"Y = {y}", f"Z = {z}", f"ID = {id}")
-#
 
 class FaceMeshDetector():
     def __init__(self, staticMode=False,
@@ -92,8 +71,33 @@ def main():
         cv2.putText(img, f'FPS: {int(fps)}', (20, 70), cv2.FONT_HERSHEY_PLAIN,
                     3, (0, 255, 0), 3)
         cv2.imshow("Image", img)
-        cv2.waitKey(1)
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+
+            break
+    capture.release()
+    cv2.destroyAllWindows()
 
 
 if __name__ == '__main__':
     main()
+#
+# mpDraw = mp.solutions.drawing_utils
+# mpFaceMesh = mp.solutions.face_mesh
+# faceMesh = mpFaceMesh.FaceMesh(max_num_faces=2)
+# drawSpec = mpDraw.DrawingSpec(thickness=1, circle_radius=2)
+#
+#     imgRGB = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+#
+#
+#     results = faceMesh.process(imgRGB)
+#     if results.multi_face_landmarks:
+#         for faceLms in results.multi_face_landmarks:
+#             mpDraw.draw_landmarks(img, faceLms,mpFaceMesh.FACE_CONNECTIONS,
+#                                   landmark_drawing_spec=drawSpec)
+#
+#             for id, lm in enumerate(faceLms.landmark):
+#                 # print(lm)
+#                 ih,iw,ic = img.shape
+#                 x,y,z,id = int(lm.x*iw),int(lm.y*ih),int(lm.z*ic),int(id)
+#                 print(f"X = {x}", f"Y = {y}", f"Z = {z}", f"ID = {id}")
+#

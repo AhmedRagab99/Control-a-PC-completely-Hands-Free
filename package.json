@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/AhmedRagab99/GP_ML#readme",
   "dependencies": {
-    "python-shell": "^3.0.0"
+    "python-shell": "^3.0.0",
+    "robotjs": "^0.6.0"
   }
 }
