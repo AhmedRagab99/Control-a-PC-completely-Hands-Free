@@ -3,7 +3,6 @@ import numpy as np
 import tensorflow as tf
 from tensorflow import keras
 
-
 def get_face_detector(modelFile="models/res10_300x300_ssd_iter_140000.caffemodel",
                       configFile="models/deploy.prototxt.txt"):
     """

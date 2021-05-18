@@ -1,7 +1,9 @@
 import cv2
 import mediapipe as mp
-mp_face_detction = mp.solutions.face_detection
+mp_face_detection = mp.solutions.face_detection
 mp_drawing = mp.solutions.drawing_utils
+drawing_spec = mp_drawing.DrawingSpec(thickness=1, circle_radius=1)
+
 
 # For static images:
 
@@ -30,6 +32,7 @@ with mp_face_detection.FaceDetection(
     if results.detections:
       for detection in results.detections:
         mp_drawing.draw_detection(image, detection)
+        print(detection)
     cv2.imshow('MediaPipe Face Detection', image)
     if cv2.waitKey(5) & 0xFF == 27:
       break
