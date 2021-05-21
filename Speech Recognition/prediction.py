@@ -45,9 +45,17 @@ def read():
 
 
 def predict(audio):
-    prob = model.predict(audio.reshape(1, 8000, 1))
-    index = np.argmax(prob[0])
-    return classes[index]
+    probabilities = model.predict(audio.reshape(1, 8000, 1))
+    index = np.argmax(probabilities[0])
+    return validate(probabilities, index)
+
+
+def validate(probabilities, index):
+    print('Prob:')
+    print(probabilities[0][index])
+    if probabilities[0][index] > 0.8:
+        return classes[index]
+    return 'Voice Command Not Recognized!'
 
 
 def initalizeSocket():
