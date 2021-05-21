@@ -18,7 +18,7 @@ socket = new WebSocketServer({
 socket.on("connect", function (connection) {
   console.log('New Connection!!');
   connection.on('message', function(message) {
-            console.log('Received Message: ' + message);
-            connection.sendUTF(message.utf8Data);
+            console.log('Received Message: ' + message.utf8Data);
+            socket.broadcast(message.utf8Data);
     });
 });
