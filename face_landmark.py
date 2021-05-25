@@ -250,7 +250,7 @@ def main():
         # faceLandmark contains the x , y , z and id for face landmark and  this used for know the face landmark movement
         # faceBox has the minX , maxX , minY , maxY for the face itself and  this used for know the face movement
         # img, faceLandmark, faceBox = detector.findMesh(img)
-        scale_percent = 50 # percent of original size
+        scale_percent = 60 # percent of original size
         width = int(img.shape[1] * scale_percent / 100)
         height = int(img.shape[0] * scale_percent / 100)
         dim = (width, height)
@@ -280,7 +280,7 @@ def main():
     while True:
         
         _, img = capture.read()
-        scale_percent = 50 # percent of original size
+        scale_percent = 60 # percent of original size
         width = int(img.shape[1] * scale_percent / 100)
         height = int(img.shape[0] * scale_percent / 100)
         dim = (width, height)

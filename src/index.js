@@ -89,12 +89,8 @@ socket.on("connect", function (connection) {
         Math.abs(posY - coordinates[1] < 20)
       )
         return;
-      robotjs.moveMouseSmooth(
-        screen.width - coordinates[0],
-        coordinates[1],
-        0.7
-      );
-      // robotjs.moveMouse();
+
+      robotjs.moveMouseSmooth(screen.width - coordinates[0], coordinates[1], 1);
       socket.broadcast(message.utf8Data);
     }
 
