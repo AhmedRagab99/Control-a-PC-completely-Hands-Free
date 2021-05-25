@@ -38,13 +38,13 @@ socket.on("connect", function (connection) {
     console.log("Received Message: " + message.utf8Data);
 
     if (message.utf8Data === "1") {
-      // robotjs.mouseClick("left");
+      robotjs.mouseClick("left");
       console.log("mouse left clicked");
     } else if (message.utf8Data === "2") {
-      // robotjs.mouseClick("right");
+      robotjs.mouseClick("right");
       console.log("mouse right clicked");
     } else if (message.utf8Data === "3") {
-      // robotjs.mouseClick("left", true);
+      robotjs.mouseClick("left", true);
       console.log("mouse double left clicked");
     } else if (message.utf8Data === "4") {
       robotjs.mouseClick("right", true);
@@ -54,12 +54,12 @@ socket.on("connect", function (connection) {
       const coordinates = message.utf8Data.toString().split(" ");
 
       if (
-        Math.abs(posX - coordinates[0] < 10) &&
-        Math.abs(posY - coordinates[1] < 10)
+        Math.abs(posX - coordinates[0] < 20) &&
+        Math.abs(posY - coordinates[1] < 20)
       )
         return;
 
-      robotjs.moveMouse(screen.width - coordinates[0], coordinates[1]);
+      robotjs.moveMouseSmooth(screen.width - coordinates[0], coordinates[1], 1);
       socket.broadcast(message.utf8Data);
     }
 
