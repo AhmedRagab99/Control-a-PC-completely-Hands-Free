@@ -59,7 +59,11 @@ socket.on("connect", function (connection) {
       )
         return;
 
-      robotjs.moveMouseSmooth(screen.width - coordinates[0], coordinates[1], 1);
+      robotjs.moveMouseSmooth(
+        screen.width - coordinates[0],
+        coordinates[1],
+        0.9
+      );
       socket.broadcast(message.utf8Data);
     }
 

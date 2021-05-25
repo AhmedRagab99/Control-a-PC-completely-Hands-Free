@@ -113,17 +113,17 @@ class FaceMeshConfigure():
                         self.mini.Y = min(cy, self.mini.Y)
                         self.nose = Point(cx, cy)
                     
-                    if id == 282 and self.leftLine.X == -1:
+                    if id == 334 and self.leftLine.X == -1:
                         self.leftLine = Point(cx, cy)
                         
 
-                    if id == 52 and self.rightLine.X == -1:
+                    if id == 105 and self.rightLine.X == -1:
                         self.rightLine = Point(cx, cy)
 
                     # Simle
-                    if id == 409 and self.mouseLeft.X == -1 :
+                    if id == 287 and self.mouseLeft.X == -1 :
                         self.mouseLeft = Point(cx, cy)
-                    if id == 185 and self.mouseRight.X == -1 :
+                    if id == 57 and self.mouseRight.X == -1 :
                         self.mouseRight = Point(cx, cy)
 
                     # Open Mouse
@@ -143,7 +143,7 @@ class FaceMeshConfigure():
                         self.rightEyeDown = Point(cx, cy)
                     if id == 145 and self.rightEyeUp.X == -1 :
                         self.rightEyeUp = Point(cx , cy)
-
-                self.leftDist = m.sqrt(m.pow((self.nose.X-self.leftLine.X), 2) + m.pow((self.nose.Y-self.leftLine.Y), 2))
-                self.rightDist = m.sqrt(m.pow((self.nose.X-self.rightLine.X), 2) + m.pow((self.nose.Y-self.rightLine.Y), 2)) 
+                if self.leftDist == 0:
+                    self.leftDist = m.sqrt(m.pow((self.leftEyeUp.X-self.leftLine.X), 2) + m.pow((self.leftEyeUp.Y-self.leftLine.Y), 2))
+                    self.rightDist = m.sqrt(m.pow((self.rightEyeUp.X-self.rightLine.X), 2) + m.pow((self.rightEyeUp.Y-self.rightLine.Y), 2)) 
 

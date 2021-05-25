@@ -9,7 +9,7 @@ import math as m
 import numpy as np
 
 # 12 and 14 mouse
-# 409 and 185 for smile
+# 287 and 57 for smile
 # 386 and 374 for left eye
 # 195 and 145 for right eye
 # 4 for nose 
@@ -58,13 +58,13 @@ class FaceMeshDetector():
         return abs(self.configure.leftEyeDown.Y - self.configure.leftEyeUp.Y) - abs(cyLeftDown - cyLeftUp)
     
     def CheckSmile(self, cxMouthLeft, cxMouthRight):
-        return abs(cxMouthLeft - cxMouthRight) - abs(self.configure.mouseLeft.X - self.configure.mouseRight.X) > 20
+        return abs(cxMouthLeft - cxMouthRight) - abs(self.configure.mouseLeft.X - self.configure.mouseRight.X) > 10
 
     def CheckOpenMouth(self, cyMouthUp, cyMouthRDown):
-        return abs(cyMouthUp - cyMouthRDown) - abs(self.configure.mouseDown.Y - self.configure.mouseUp.Y) > 20
+        return abs(cyMouthUp - cyMouthRDown) - abs(self.configure.mouseDown.Y - self.configure.mouseUp.Y) > 10
 
-    def CheckLineMove(self, cx, cy, Dist):
-       return m.sqrt(m.pow((cx-self.configure.nose.X), 2) + m.pow((cy-self.configure.nose.Y), 2)) >(Dist + 20)
+    def CheckLineMove(self, cx, cy, Dist, cx2, cy2):
+       return m.sqrt(m.pow((cx-cx2), 2) + m.pow((cy-cy2), 2)) >(Dist + 5)
 
 
     def findMesh(self, img, draw=True):
@@ -124,10 +124,10 @@ class FaceMeshDetector():
                     if id == 4:
                         self.UpdateMousePos(cx=cx,cy=cy)
 
-                    if id == 282:
+                    if id == 334:
                         leftLine = Point(cx, cy)
                         
-                    if id == 52:
+                    if id == 105:
                         rightLine = Point(cx, cy)
 
                     if id == 12:
@@ -135,9 +135,9 @@ class FaceMeshDetector():
                     if id == 14:
                         mouseDown = Point(cx, cy)
 
-                    if id == 409:
+                    if id == 287:
                         mouseLeft = Point(cx, cy)
-                    if id == 185:
+                    if id == 57:
                         mouseRight = Point(cx, cy)
 
                     if id == 386:
@@ -167,16 +167,16 @@ class FaceMeshDetector():
                 # print("LeftEye "+str(leftEye),"%%%%%"+ "RightEye "+str(rightEye))
                 # if  rightEye > 5.5 or leftEye > 5.5:
                 #     self.socket.ws.send(str(1))
+                if self.CheckSmile(mouseLeft.X, mouseRight.X) and self.frames - self.lastSmile > 6:# and self.CheckOpenMouth(mouseDown.Y, mouseUp.Y) and self.frames - self.lastOpen <= 6:
+                    self.socket.ws.send(str(2))
+                    self.lastSmile = self.frames
 
                 if self.CheckOpenMouth(mouseDown.Y, mouseUp.Y) and self.frames - self.lastOpen > 6: 
                     self.socket.ws.send(str(1))
                     self.lastOpen = self.frames
 
-                if self.CheckSmile(mouseLeft.X, mouseRight.X) and self.frames - self.lastSmile > 6:
-                    self.socket.ws.send(str(2))
-                    self.lastSmile = self.frames
                 
-                if self.CheckLineMove(leftLine.X, leftLine.Y, self.configure.leftDist) or self.CheckLineMove(rightLine.X, rightLine.Y, self.configure.rightDist):
+                if self.CheckLineMove(leftLine.X, leftLine.Y, self.configure.leftDist, leftEyeUp.X, leftEyeUp.Y) or self.CheckLineMove(rightLine.X, rightLine.Y, self.configure.rightDist, rightEyeUp.X, rightEyeUp.Y):
                     if self.frames - self.lastLine > 6: 
                         self.socket.ws.send(str(3))
                         self.lastLine = self.frames
