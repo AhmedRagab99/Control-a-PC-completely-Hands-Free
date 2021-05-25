@@ -4,9 +4,20 @@ const W3CWebSocket = require("websocket").w3cwebsocket;
 
 export default function Navbar() {
   const [data, setData] = useState([]);
-  let coordinates = useRef();
+  const [constrainet, setConstrainet] = useState({});
+
+  // var element = document.getElementById("foo");
+  // var positionInfo = element.getBoundingClientRect();
+  // const height = positionInfo.height;
+  // const width = positionInfo.width;
+  // const X = positionInfo.x;
+  // const Y = positionInfo.y;
+  // setConstrainet({ width, height, X, Y });
+  console.log(constrainet);
+
   useEffect(() => {
     // initializeSocket();
+
     fetch("http://localhost:8080/")
       .then((data) => console.log(`file is moving yaaaaaaa${data}`))
       .catch((err) => console.log(err));
@@ -18,10 +29,9 @@ export default function Navbar() {
       setData("WebSocket Client Connected");
     };
     client.onmessage = function (message) {
-      coordinates = message.data.toString().split(" ");
-      console.log(coordinates[0]);
-
-      setData(coordinates);
+      // coordinates = message.data.toString().split(" ");
+      // console.log(coordinates[0]);
+      // setData(coordinates);
     };
     client.onclose = function () {
       setData("WebSocket Client Connection Closed");
@@ -169,11 +179,15 @@ export default function Navbar() {
       {/* Remove class [ h-64 ] when adding a card block */}
       <div className="container mx-auto py-10 h-64 md:w-4/5 w-11/12 px-6">
         {/* Remove class [ border-dashed border-2 border-gray-300 ] to remove dotted border */}
-        <div className="w-full h-full rounded border-dashed border-2 border-gray-300">
+        <div
+          id="foo"
+          className="w-full h-full rounded border-dashed border-2 border-gray-300"
+        >
           <center>
             <div>
               <h1>### WebSocket Data ###</h1>
-              <h2>{data[0] + "%%%%" + data[1]}</h2>
+
+              <h2>{constrainet.width + "$$$$" + constrainet.height}</h2>
             </div>
           </center>
         </div>

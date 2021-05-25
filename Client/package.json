@@ -20,12 +20,12 @@
   },
   "main": "./electron/main.js",
   "scripts": {
-    "start": "BROWSER=none craco start",
+    "start": "craco start",
     "build": "craco build",
     "test": "craco test",
     "eject": "react-scripts eject",
     "ebuild": "npm run build && node_modules/.bin/build",
-    "dev": "concurrently \"npm start\" \"wait-on http://localhost:3000 && electron .\""
+    "dev": "concurrently  \" BROWSER=none npm start\" \"wait-on http://localhost:3000 && electron .\""
   },
   "eslintConfig": {
     "extends": [
