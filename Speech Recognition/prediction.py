@@ -7,6 +7,7 @@ import websocket
 import threading
 from keras.models import load_model
 from sklearn.preprocessing import LabelEncoder
+from time import sleep
 
 labels = ["yes", "no", "up", "down", "left",
           "right", "on", "off", "stop", "go"]
@@ -22,7 +23,10 @@ def main():
         record()
         audio = read()
         word = predict(audio)
-        ws.send(word)
+        do = action(word)
+        if do is not None:
+            ws.send(do)
+        sleep(1)
 
 
 def record():
@@ -30,6 +34,7 @@ def record():
     duration = 1  # seconds
     filename = 'command.wav'
     print("Start Recording")
+    sleep(0.5)
     myData = sd.rec(int(sampleRate * duration), samplerate=sampleRate,
                     channels=1, blocking=True)
     print("End Recording")
@@ -52,10 +57,26 @@ def predict(audio):
 
 def validate(probabilities, index):
     print('Prob:')
+    print(classes[index])
     print(probabilities[0][index])
     if probabilities[0][index] > 0.8:
         return classes[index]
     return 'Voice Command Not Recognized!'
+
+def action(word):
+    print(word)
+    if word == "left" or word == "on":
+        return "Left"
+    if word == "up":
+        return "Up"
+    if word == "right":
+        return "Right"
+    if word == "down":
+        return "Down"
+    if word == "yes":
+        return "Yes"
+    if word == "no":
+        return "No"
 
 
 def initalizeSocket():
