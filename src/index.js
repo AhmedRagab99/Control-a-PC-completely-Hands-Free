@@ -3,34 +3,92 @@ var http = require("http");
 const robotjs = require("robotjs");
 const PythonShell = require("python-shell").PythonShell;
 const path = require("path");
-
-var screen = robotjs.getScreenSize();
-console.log(screen.width + "x" + screen.height);
+const mongoose = require("mongoose");
+const AuthRoutes = require("./routes/AuthRoutes");
+const morgan = require("morgan");
+const dotenv = require("dotenv");
 
 const express = require("express");
 const app = express();
 const server = http.createServer(app);
 
+app.get("/about", (req, res) => {
+  res.send("welcome to our site");
+});
+app.get("/", function (req, res) {
+  res.send("<b>My</b> first express http server");
+});
+
+// On localhost:3000/welcome
+app.get("/welcome", function (req, res) {
+  res.send("<b>Hello</b> welcome to my http server made with express");
+});
+
+// middelware
+app.use(morgan("dev"));
+dotenv.config();
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use("/api/v1/auth", AuthRoutes);
+
+mongoose.connect(
+  process.env.MONGOURI || "",
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+
+    useCreateIndex: true,
+  },
+  () => {
+    console.log("connected to data base ");
+  }
+);
+
+var screen = robotjs.getScreenSize();
+console.log(screen.width + "x" + screen.height);
+console.log(process.env.MONGOURI);
 const runPythonCode = (req, res, next) => {
-  console.log("inside the python code");
-  PythonShell.run(
-    "/Users/ahmedragab/Desktop/GP_ML/face_landmark.py",
-    null,
-    function (err, message) {
-      if (err) console.log(err);
-      console.log(message);
-      console.log(typeof message);
+  const { exec } = require("child_process");
+
+  const testvar = "false";
+  exec(
+    `python3 prediction.py & python3 face_landmark.py ${testvar}`,
+    { cwd: "/Users/ahmedragab/Desktop/GP_ML/" },
+    (error, stdout, stderr) => {
+      if (error) {
+        console.log(`error: ${error.message}`);
+        return;
+      }
+      if (stderr) {
+        console.log(`stderr: ${stderr}`);
+        return;
+      }
+      console.log(`stdout: ${stdout}`);
     }
   );
-  PythonShell.run(
-    "/Users/ahmedragab/GP_ML/Speech Recognition/prediction.py",
-    null,
-    function (err, message) {
-      if (err) console.log(err);
-      console.log(message);
-      console.log(typeof message);
-    }
-  );
+  // let options = {
+  //   pythonOptions: ["-u"], // get print results in real-time
+  //   args: ["false"],
+  // };
+  // console.log("inside the python code");
+  // PythonShell.run(
+  //   "/Users/ahmedragab/Desktop/GP_ML/test.py",
+  //   null,
+  //   function (err, message) {
+  //     if (err) console.log(err);
+  //     console.log(message);
+  //     console.log(typeof message);
+  //   }
+  // );
+  // PythonShell.run(
+  //   "/Users/ahmedragab/GP_ML/Speech Recognition/prediction.py",
+  //   null,
+  //   function (err, message) {
+  //     if (err) console.log(err);
+  //     console.log(message);
+  //     console.log(typeof message);
+  //   }
+  // );
   console.log("out");
   next();
 };
@@ -101,10 +159,10 @@ socket.on("connect", function (connection) {
   });
 });
 
-app.get("/", runPythonCode, function (req, res) {
+app.get("/test", runPythonCode, function (req, res) {
   res.send("Hello World!");
 });
 
-server.listen(8080, function () {
+server.listen(process.env.PORT, function () {
   console.log(new Date() + " Server is listening on port 8080");
 });

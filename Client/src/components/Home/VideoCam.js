@@ -65,11 +65,13 @@ function VideoCam() {
               </p>
             )}
             <div className="app__container">
-              <div
+              <video
                 height={HEIGHT}
                 width={WIDTH}
+                muted
+                autoPlay
                 className="app__videoFeed"
-              ></div>
+              ></video>
             </div>
             <div className="app__input">
               {playing ? (

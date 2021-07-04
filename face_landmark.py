@@ -6,7 +6,9 @@ import mediapipe as mp
 import time
 import math as m
 # import imutils
+import sys
 import numpy as np
+import os
 
 # 12 and 14 mouse
 # 287 and 57 for smile
@@ -66,6 +68,103 @@ class FaceMeshDetector():
     def CheckLineMove(self, cx, cy, Dist, cx2, cy2):
        return m.sqrt(m.pow((cx-cx2), 2) + m.pow((cy-cy2), 2)) >(Dist + 5)
 
+    def convertToSave (self):
+    
+        strr = str(detector.configure.mouseUp.X) + ","
+        strr += str(detector.configure.mouseUp.Y) + ","
+
+        strr += str(detector.configure.mouseDown.X) + ","
+        strr += str(detector.configure.mouseDown.Y) + ","
+        
+        strr += str(detector.configure.rightEyeUp.X) + ","
+        strr += str(detector.configure.rightEyeUp.Y) + ","
+        
+        strr += str(detector.configure.rightEyeDown.X) + ","
+        strr += str(detector.configure.rightEyeDown.Y) + ","
+        
+        strr += str(detector.configure.leftEyeUp.X) + ","
+        strr += str(detector.configure.leftEyeUp.Y) + ","
+        
+        strr += str(detector.configure.leftEyeDown.X) + ","
+        strr += str(detector.configure.leftEyeDown.Y) + ","
+        
+        strr += str(detector.configure.mouseLeft.X) + ","
+        strr += str(detector.configure.mouseLeft.Y) + ","
+        
+        strr += str(detector.configure.mouseRight.X) + ","
+        strr += str(detector.configure.mouseRight.Y) + ","
+        
+        strr += str(detector.configure.leftLine.X) + ","
+        strr += str(detector.configure.leftLine.Y) + ","
+
+        strr += str(detector.configure.rightLine.X) + ","
+        strr += str(detector.configure.rightLine.Y) + ","
+        
+        strr += str(detector.configure.nose.X) + ","
+        strr += str(detector.configure.nose.Y) + ","
+        
+        strr += str(detector.configure.maxi.X) + ","
+        strr += str(detector.configure.maxi.Y) + ","
+        
+        strr += str(detector.configure.mini.X) + ","
+        strr += str(detector.configure.mini.Y) + ","
+        
+        strr += str(detector.configure.leftDist) + ","
+        strr += str(detector.configure.rightDist)
+
+        self.ws.send(strr)
+     
+    def fill(self, str):
+        nums = str.split(',')
+        idx = 0
+
+        self.configure.mouseUp = Point(int(nums[idx]), int(nums[idx + 1]))
+        idx += 2
+
+        self.configure.mouseDown = Point(int(nums[idx]), int(nums[idx + 1]))
+        idx += 2
+        
+        self.configure.rightEyeUp = Point(int(nums[idx]), int(nums[idx + 1]))
+        idx += 2
+        
+        self.configure.rightEyeDown = Point(int(nums[idx]), int(nums[idx + 1]))
+        idx += 2
+        
+        self.configure.leftEyeUp = Point(int(nums[idx]), int(nums[idx + 1]))
+        idx += 2
+        
+        self.configure.leftEyeDown = Point(int(nums[idx]), int(nums[idx + 1]))
+        idx += 2
+        
+        self.configure.mouseLeft = Point(int(nums[idx]), int(nums[idx + 1]))
+        idx += 2
+        
+        self.configure.mouseRight = Point(int(nums[idx]), int(nums[idx + 1]))
+        idx += 2
+        
+        self.configure.leftLine = Point(int(nums[idx]), int(nums[idx + 1]))
+        idx += 2
+        
+        self.configure.rightLine = Point(int(nums[idx]), int(nums[idx + 1]))
+        idx += 2
+
+        self.configure.nose = Point(int(nums[idx]), int(nums[idx + 1]))
+        idx += 2
+
+        self.configure.maxi = Point(int(nums[idx]), int(nums[idx + 1]))
+        idx += 2
+        
+        self.configure.mini = Point(int(nums[idx]), int(nums[idx + 1]))
+        idx += 2
+        
+        self.configure.leftDist = nums[idx]
+        idx += 1
+
+        self.configure.rightDist = nums[idx]
+        idx += 1
+        
+        
+        
 
     def findMesh(self, img, draw=True):
         self.imgRGB = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
@@ -228,6 +327,8 @@ class SocketConnection:
         print(ws)
         print("### Web Socket Disconnected! ###")
         
+
+    
 def main():
     
     capture = cv2.VideoCapture(0)
@@ -238,42 +339,47 @@ def main():
     # configure =FaceMeshConfigure()
     # configure.calcBoundries()
     # cv2.namedWindow(title)
-    
+    isConfigured = sys.argv[1]
+    print(isConfigured)
         
-    
-    while True:
-        
-        _, img = capture.read()
-        
-        
+    if isConfigured != 'false':
 
-        # faceLandmark contains the x , y , z and id for face landmark and  this used for know the face landmark movement
-        # faceBox has the minX , maxX , minY , maxY for the face itself and  this used for know the face movement
-        # img, faceLandmark, faceBox = detector.findMesh(img)
-        scale_percent = 60 # percent of original size
-        width = int(img.shape[1] * scale_percent / 100)
-        height = int(img.shape[0] * scale_percent / 100)
-        dim = (width, height)
-        img = cv2.resize(img,dim,interpolation = cv2.INTER_AREA)
-        cv2.moveWindow('Image', 300, 0)
-        
-        
-        # img = cv2.rectangle(img,start_point, end_point, color, thickness)
-  
-        detector.configure.calcBoundries(img)
-        
+        while True:
+            
+            _, img = capture.read()
+            
+            
 
-        cTime = time.time()
-        fps = 1 / (cTime - pTime)
-        pTime = cTime
-        cv2.putText(img, f'FPS: {int(fps)}', (20, 70), cv2.FONT_HERSHEY_PLAIN,
-                    3, (255,0 , 0), 3)
-        cv2.imshow("Image", img)
-        # s.stop()
-        if cv2.waitKey(1) & 0xFF == ord('q'):
-            break
-    capture.release()
-    cv2.destroyAllWindows()
+            # faceLandmark contains the x , y , z and id for face landmark and  this used for know the face landmark movement
+            # faceBox has the minX , maxX , minY , maxY for the face itself and  this used for know the face movement
+            # img, faceLandmark, faceBox = detector.findMesh(img)
+            scale_percent = 60 # percent of original size
+            width = int(img.shape[1] * scale_percent / 100)
+            height = int(img.shape[0] * scale_percent / 100)
+            dim = (width, height)
+            img = cv2.resize(img,dim,interpolation = cv2.INTER_AREA)
+            cv2.moveWindow('Image', 300, 0)
+            
+            
+            # img = cv2.rectangle(img,start_point, end_point, color, thickness)
+    
+            detector.configure.calcBoundries(img)
+            
+
+            cTime = time.time()
+            fps = 1 / (cTime - pTime)
+            pTime = cTime
+            cv2.putText(img, f'FPS: {int(fps)}', (20, 70), cv2.FONT_HERSHEY_PLAIN,
+                        3, (255,0 , 0), 3)
+            cv2.imshow("Image", img)
+            # s.stop()
+            if cv2.waitKey(1) & 0xFF == ord('q'):
+                break
+        capture.release()
+        cv2.destroyAllWindows()
+        detector.convertToSave(detector);
+        
+        
     capture = cv2.VideoCapture(0)
     print("left one ",detector.configure.leftDist)
     print("right one ",detector.configure.rightDist)
