@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from "react-router-dom";
+import Toggle from '../Theme/Toggle';
 import { useHistory } from "react-router-dom";
 
 
@@ -28,12 +29,13 @@ export default function Login() {
 
     return (
 
-        <div className="flex flex-wrap w-full">
+        <div className="flex flex-wrap w-full bg-gray-100 dark:bg-gray-800">
+        <div className="absolute top-0 left-0 p-2"><Toggle /></div>
             <div className="flex flex-col w-full md:w-1/2">
 
                 <div className="flex flex-col justify-center px-8 pt-8 my-auto md:justify-start md:pt-0 md:px-24 lg:px-32">
                     <div class="px-2 sm:px-6">
-                        <h3 class="text-xl sm:text-2xl md:text-xl font-bold leading-tight">Login To Your Account</h3>
+                        <h3 class="text-xl text-gray-800 dark:text-gray-100 sm:text-2xl md:text-lg font-bold leading-tight">Login To Your Account</h3>
                     </div>
                     <form onSubmit={handleSubmit} className="flex flex-col pt-3 md:pt-8">
                         <div className="flex flex-col pt-5">
@@ -70,26 +72,22 @@ export default function Login() {
                                     type="checkbox"
                                     className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
                                 />
-                                <label htmlFor="remember_me" className="ml-2 block text-sm text-gray-900">
+                                <label htmlFor="remember_me" className="ml-2 block text-sm text-gray-800 dark:text-gray-100">
                                     Remember me
                                  </label>
                             </div>
 
-                            <div className="text-sm">
-                                <Link to="#" className="font-medium text-indigo-700 hover:text-indigo-600">
-                                    Forgot your password?
-                                 </Link>
-                            </div>
+                            
                         </div>
 
-                        <button type="submit" class="button" onClick = {() => routeChange('/webcam')} >
+                        <button type="submit" class="button" onClick = {() => routeChange('/home')} >
                             Login
                         </button>
                     </form>
-                    <div className="pt-12 pb-12 text-center">
-                        <p>
+                    <div className="pt-12 pb-12 text-center ">
+                        <p className='text-gray-800 dark:text-gray-100'>
                             Don&#x27;t have an account?
-                            <Link to="/register" className="underline text-indigo-600">
+                            <Link to="/register" className="underline text-indigo-600 dark:text-indigo-400">
                                 Register here.
                             </Link>
                         </p>

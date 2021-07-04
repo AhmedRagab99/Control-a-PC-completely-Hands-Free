@@ -1,7 +1,8 @@
 import React from 'react'
 import { useHistory } from "react-router-dom";
 import useForm from "./useForm";
-import validate from './validatioInfo'
+import validate from './validatioInfo';
+import Toggle from '../Theme/Toggle';
 
 export default function Register() {
     const history = useHistory();
@@ -10,7 +11,8 @@ export default function Register() {
 
     return (
 
-        <div className="flex flex-wrap w-full">
+        <div className="flex flex-wrap w-full bg-gray-100 dark:bg-gray-800">
+        <div className="absolute top-0 right-0 p-2"><Toggle /></div>
             <div className="w-1/2 shadow-2xl">
                 <img className="object-contain md:object-fill w-full h-screen " src="images/2.jpg" alt="" />
             </div>
@@ -18,7 +20,7 @@ export default function Register() {
 
                 <div className="flex flex-col justify-center px-8 pt-8 my-auto md:justify-start md:pt-0 md:px-24 lg:px-32">
                     <div class="px-2 sm:px-6">
-                        <h3 class="text-2xl sm:text-3xl md:text-2xl font-bold leading-tight">Create A new Account</h3>
+                        <h3 class="text-2xl sm:text-3xl md:text-xl text-gray-800 dark:text-gray-100 font-bold leading-tight">Create A new Account</h3>
                     </div>
                     <form onSubmit={handleSubmit} className="flex flex-col pt-3 md:pt-8">
                         <div className="flex flex-col pt-4">
@@ -60,7 +62,7 @@ export default function Register() {
                             </div>
                         </div>
 
-                        <button type="submit" class="button" onClick={() => history.push('/webcam')}>
+                        <button type="submit" class="button" onClick={() => history.push('/home')}>
                             Submit
                         </button>
 
