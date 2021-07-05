@@ -65,18 +65,7 @@ def validate(probabilities, index):
 
 def action(word):
     print(word)
-    if word == "left" or word == "on":
-        return "Left"
-    if word == "up":
-        return "Up"
-    if word == "right":
-        return "Right"
-    if word == "down":
-        return "Down"
-    if word == "yes":
-        return "Yes"
-    if word == "no":
-        return "No"
+    return word
 
 
 def initalizeSocket():
