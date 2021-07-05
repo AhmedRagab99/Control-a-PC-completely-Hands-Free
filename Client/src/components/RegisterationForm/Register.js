@@ -1,5 +1,5 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import useForm from "./useForm";
 import validate from "./validatioInfo";
 import Toggle from "../Theme/Toggle";
@@ -114,6 +114,17 @@ export default function Register() {
               Submit
             </button>
           </form>
+          <div className="pt-12 pb-12 text-center ">
+            <p className="text-gray-800 dark:text-gray-100">
+              have an account?
+              <Link
+                to="/"
+                className="underline text-indigo-600 dark:text-indigo-400"
+              >
+                login here.
+              </Link>
+            </p>
+          </div>
         </div>
       </div>
     </div>
