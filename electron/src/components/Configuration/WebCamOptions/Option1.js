@@ -1,17 +1,15 @@
 import React from 'react'
-import SideBar from '../SideBar/SideBar'
-import Toggle from '../Theme/Toggle';
+import SideBar from '../../SideBar/SideBar';
+import Toggle from '../../Theme/Toggle';
+import Options from './Options'
 import { useHistory } from "react-router-dom";
 
 
-export default function Setup() {
+export default function Option1() {
     const history = useHistory();
     const routeChange = (path) => {
         history.push(path);
     }
-    const HEIGHT = 320;
-    const WIDTH = 350;
-
     return (
         <div className="flex flex-no-wrap">
             <SideBar />
@@ -25,26 +23,31 @@ export default function Setup() {
 
                         <div className="relative sm:max-w-xl sm:mx-auto">
                             <div className="absolute inset-0  bg-gradient-to-r from-cyan-400 to-light-blue-500 dark:bg-gray-300 dark:bg-opacity-25  shadow-2xl transform -skew-y-6 sm:skew-y-0 sm:-rotate-6 sm:rounded-3xl"></div>
-                            <div className="relative px-3 py-4  bg-gray-100 dark:bg-gray-200  dark:bg-opacity-90 shadow-2xl sm:rounded-3xl sm:p-16">
+                            <div className="relative px-3 py-4  bg-gray-100 dark:bg-gray-200  dark:bg-opacity-90 shadow-2xl sm:rounded-3xl sm:p-12">
 
-                                <p className=" text-gray-400 px-16 ">Set Your Own Configurations ...</p>
+                                <p id={0} className=" text-gray-400 text-xl px-36 py-4 ">Smile to ...</p>
                                 <div className="container">
-                                    <video
-                                        height={HEIGHT}
-                                        width={WIDTH}
-                                        muted
-                                        autoPlay
-                                        className="app__videoFeed"
-                                    ></video>
+                                    <Options />
+
                                 </div>
 
 
                                 <div className="flex flex-row">
 
-                                    
-                                    <button className="setconfgbtn animate-bounce " onClick={() => routeChange('/option1')}>
+                                    <button className="setconfgbtn animate-bounce " onClick={() => routeChange('/setconfg')}>
 
-                                        <span className="absolute left-64 flex items-center pl-4">
+                                        <span className="absolute  flex items-center ">
+
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                                <path fill-rule="evenodd" d="M15.707 15.707a1 1 0 01-1.414 0l-5-5a1 1 0 010-1.414l5-5a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 010 1.414zm-6 0a1 1 0 01-1.414 0l-5-5a1 1 0 010-1.414l5-5a1 1 0 011.414 1.414L5.414 10l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd" />
+                                            </svg>
+                                            previous
+                                        </span>
+
+                                    </button>
+                                    <button className="setconfgbtn animate-bounce " onClick={() => routeChange('/option2')}>
+
+                                        <span className="absolute left-32 flex items-center pl-4">
                                             next
                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 5l7 7-7 7" />

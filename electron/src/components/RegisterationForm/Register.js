@@ -30,7 +30,7 @@ export default function Register() {
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                                     </svg>
                                 </span>
-                                <input id="Username" required aria-required="true" name="email" type="text"
+                                <input id="username" required aria-required="true" name="username" type="text"
                                     value={inputs.username}
                                     onChange={handleChange} className=" Textinput focus:border" placeholder="Username" />
                             </div>
@@ -56,7 +56,7 @@ export default function Register() {
                                         </path>
                                     </svg>
                                 </span>
-                                <input type="password" required
+                                <input id="password" type="password" required
                                     value={inputs.password}
                                     onChange={handleChange} className=" Textinput focus:border " placeholder="Password" />
                             </div>

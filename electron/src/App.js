@@ -8,7 +8,10 @@ import Configuration from './components/Configuration/Configuration';
 import DefaultHome from './components/Home/DefaultHome';
 import Default from './components/Configuration/Default';
 import Setup from './components/Configuration/Setup';
-
+import Option1 from './components/Configuration/WebCamOptions/Option1';
+import Option2 from './components/Configuration/WebCamOptions/Option2';
+import Option3 from './components/Configuration/WebCamOptions/Option3';
+import VoiceOption from './components/Configuration/VoiceOptions/VoiceOptions';
 
 
 function App() {
@@ -39,6 +42,18 @@ function App() {
           </Route>   
           <Route path="/register">
             <Register />
+          </Route>
+          <Route path="/option1">
+            <Option1 />
+          </Route>
+          <Route path="/option2">
+            <Option2 />
+          </Route>
+          <Route path="/option3">
+            <Option3 />
+          </Route>
+          <Route path="/Voption">
+            <VoiceOption />
           </Route>
 
         </Switch>

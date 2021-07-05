@@ -1,8 +1,8 @@
 export const SliderData =[
-  'Move your head left,right,up and down to control mouse cursor motion',
+  'Move your head left, right, up and down to control mouse cursor motion',
   'Smile to Right Click ...',
-  'Open your mouse to left click ...',
+  'Open your mouth to left click ...',
   'Raise your Eyebrow to Double click ...',
-  'You can also control the mouse cursor motion by saying left,right, up and down ...',
+  'You can also control the mouse cursor motion by saying left, right, up and down ...',
   'Say Yes to Click ... '
 ];
