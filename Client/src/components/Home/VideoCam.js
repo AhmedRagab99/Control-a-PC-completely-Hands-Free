@@ -1,83 +1,101 @@
 import React from "react";
-
-function VideoCam() {
+import welcome from "../static/office.json";
+import lottie from "lottie-web";
+import Toggle from "../Theme/Toggle";
+const axios = require("axios");
+export default function VideoCam() {
   const [playing, setPlaying] = React.useState(false);
 
-  const HEIGHT = 285;
-  const WIDTH = 285;
-  const runScript = () => {};
+  const HEIGHT = 320;
+  const WIDTH = 350;
+
+  React.useEffect(() => {
+    lottie.loadAnimation({
+      container: document.querySelector("#app-logo"),
+      animationData: welcome,
+      renderer: "svg", // "canvas", "html"
+      loop: true, // boolean
+      autoplay: true, // boolean
+    });
+  }, [playing]);
 
   const startVideo = () => {
     setPlaying(true);
-    fetch("http://localhost:8080/")
-      .then(() => {
-        console.log("inside the success");
+    axios
+      .get("http://localhost:8080/testface", {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"), //the token is a variable which holds the token
+        },
+      })
+      .then((res) => {
+        console.log(res.data);
       })
       .catch((err) => console.log(err));
-
-    // navigator .getUserMedia(
-    //   {
-    //     video: true,
-    //   },
-    //   (stream) => {
-    //     let video = document.getElementsByClassName("app__videoFeed")[0];
-    //     const dim = video.getBoundingClientRect();
-    //     console.log(
-    //       "width ",
-    //       dim.width,
-    //       "height ",
-    //       dim.height,
-    //       "X is ",
-    //       dim.x,
-    //       "Y is ",
-    //       dim.y
-    //     );
-
-    //     if (video) {
-    //       video.srcObject = stream;
-    //     }
-    //   },
-    //   (err) => console.error(err)
+    // navigator.getUserMedia(
+    //     {
+    //         video: true,
+    //     },
+    //     (stream) => {
+    //         let video = document.getElementsByClassName('app__videoFeed')[0];
+    //         if (video) {
+    //             video.srcObject = stream;
+    //         }
+    //     },
+    //     (err) => console.error(err)
     // );
   };
 
   const stopVideo = () => {
     setPlaying(false);
-    let video = document.getElementsByClassName("app__videoFeed")[0];
+
+    // let video = document.getElementsByClassName('app__videoFeed')[0];
     // video.srcObject.getTracks()[0].stop();
   };
 
   return (
     <div>
-      <div class="min-h-screen bg-gray-100 flex flex-col shadow-inner drop-shadow-2xl rounded-md justify-center sm:py-7">
+      <div className="absolute top-0 right-0 p-2">
+        <Toggle />
+      </div>
+      <div className="min-h-screen bg-gray-100 dark:bg-gray-800 flex flex-col dark:border-gray-700  shadow-3xl rounded-lg justify-center sm:py-7">
         <div className="relative sm:max-w-xl sm:mx-auto">
-          <p className="Text">Live Your Life To The Fullest, You Deserve it</p>
+          <p className="Text italic">
+            Live Your Life To The Fullest, You Deserve it
+          </p>
         </div>
 
-        <div class="relative sm:max-w-xl sm:mx-auto">
-          <div class="absolute inset-0 bg-gradient-to-r from-cyan-400 to-light-blue-500 shadow-2xl transform -skew-y-6 sm:skew-y-0 sm:-rotate-6 sm:rounded-3xl"></div>
-          <div class="relative px-4 py-4  bg-white shadow-2xl sm:rounded-3xl sm:p-16">
+        <div className="relative sm:max-w-xl sm:mx-auto">
+          <div className="absolute inset-0  bg-gradient-to-r from-cyan-400 to-light-blue-500 dark:bg-gray-300 dark:bg-opacity-25  shadow-2xl transform -skew-y-6 sm:skew-y-0 sm:-rotate-6 sm:rounded-3xl"></div>
+          <div className="relative px-3 py-4  bg-gray-100 dark:bg-gray-200  dark:bg-opacity-90 shadow-2xl sm:rounded-3xl sm:p-16">
             {playing ? (
-              <p className=" text-gray-400 px-10 ">Start Controlling Your PC</p>
+              <p className=" text-gray-400 px-16 ">
+                Start Controlling Your PC ...
+              </p>
             ) : (
-              <p className="text-gray-400">
-                Press Play To Start Controlling your Pc
+              <p className="text-gray-400 px-10 ">
+                {" "}
+                Press Play To Start Controlling your Pc ...
               </p>
             )}
-            <div className="app__container">
-              <video
-                height={HEIGHT}
-                width={WIDTH}
-                muted
-                autoPlay
-                className="app__videoFeed"
-              ></video>
+            <div className="container">
+              {playing ? (
+                <video
+                  height={HEIGHT}
+                  width={WIDTH}
+                  muted
+                  autoPlay
+                  className="app__videoFeed"
+                ></video>
+              ) : (
+                <div id="app-logo" style={{ width: 340, height: 200 }}></div>
+              )}
             </div>
+
             <div className="app__input">
               {playing ? (
-                <button className="btn" onClick={stopVideo}>
+                <button className="btn " onClick={stopVideo}>
                   Pause
-                  <span className="absolute left-2 inset-y-0 flex items-center pl-3">
+                  <span className="absolute left-2 inset-y-0 flex items-center pl-4">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       class="h-5 w-5"
@@ -94,7 +112,7 @@ function VideoCam() {
                 </button>
               ) : (
                 <button className="btn" onClick={startVideo}>
-                  <span className="absolute left-2 inset-y-0 flex items-center pl-3">
+                  <span className="absolute left-2 inset-y-0 flex items-center pl-4">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       class="h-5 w-5"
@@ -118,4 +136,3 @@ function VideoCam() {
     </div>
   );
 }
-export default VideoCam;

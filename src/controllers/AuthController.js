@@ -7,8 +7,8 @@ const Configuration = require("../models/Configration");
 const signUp = async (req, res) => {
   try {
     const { name, email, password } = req.body;
-    // console.log(req.body);
-    const { error } = regestrationValidation(req.body);
+    console.log(req.body);
+    const { error } = regestrationValidation({ name, email, password });
     if (error) {
       return res.status(400).json({
         error: error.details,
@@ -33,6 +33,7 @@ const signUp = async (req, res) => {
         password: hashedpassword,
         email,
       }).save();
+
       const configs = await new Configuration({
         user: user,
       }).save();

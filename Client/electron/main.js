@@ -6,9 +6,10 @@ let mainWindow;
 
 function createWindow() {
   mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: 900,
+    height: 630,
     show: false,
+    resizable: true,
   });
   const startURL = isDev
     ? "http://localhost:3000"
@@ -18,9 +19,7 @@ function createWindow() {
 
   mainWindow.once("ready-to-show", () => mainWindow.show());
   mainWindow.on("closed", () => {
-    if (process.platform !== "darwin") {
-      app.quit();
-    }
+    mainWindow = null;
   });
 }
 app.on("ready", createWindow);

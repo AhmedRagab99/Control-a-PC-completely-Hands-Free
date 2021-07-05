@@ -69,98 +69,97 @@ class FaceMeshDetector():
        return m.sqrt(m.pow((cx-cx2), 2) + m.pow((cy-cy2), 2)) >(Dist + 5)
 
     def convertToSave (self):
-    
-        strr = str(detector.configure.mouseUp.X) + ","
-        strr += str(detector.configure.mouseUp.Y) + ","
+        
+        strr = str(self.configure.mouseUp.X) + ","
+        strr += str(self.configure.mouseUp.Y) + ","
 
-        strr += str(detector.configure.mouseDown.X) + ","
-        strr += str(detector.configure.mouseDown.Y) + ","
+        strr += str(self.configure.mouseDown.X) + ","
+        strr += str(self.configure.mouseDown.Y) + ","
         
-        strr += str(detector.configure.rightEyeUp.X) + ","
-        strr += str(detector.configure.rightEyeUp.Y) + ","
+        strr += str(self.configure.rightEyeUp.X) + ","
+        strr += str(self.configure.rightEyeUp.Y) + ","
         
-        strr += str(detector.configure.rightEyeDown.X) + ","
-        strr += str(detector.configure.rightEyeDown.Y) + ","
+        strr += str(self.configure.rightEyeDown.X) + ","
+        strr += str(self.configure.rightEyeDown.Y) + ","
         
-        strr += str(detector.configure.leftEyeUp.X) + ","
-        strr += str(detector.configure.leftEyeUp.Y) + ","
+        strr += str(self.configure.leftEyeUp.X) + ","
+        strr += str(self.configure.leftEyeUp.Y) + ","
         
-        strr += str(detector.configure.leftEyeDown.X) + ","
-        strr += str(detector.configure.leftEyeDown.Y) + ","
+        strr += str(self.configure.leftEyeDown.X) + ","
+        strr += str(self.configure.leftEyeDown.Y) + ","
         
-        strr += str(detector.configure.mouseLeft.X) + ","
-        strr += str(detector.configure.mouseLeft.Y) + ","
+        strr += str(self.configure.mouseLeft.X) + ","
+        strr += str(self.configure.mouseLeft.Y) + ","
         
-        strr += str(detector.configure.mouseRight.X) + ","
-        strr += str(detector.configure.mouseRight.Y) + ","
+        strr += str(self.configure.mouseRight.X) + ","
+        strr += str(self.configure.mouseRight.Y) + ","
         
-        strr += str(detector.configure.leftLine.X) + ","
-        strr += str(detector.configure.leftLine.Y) + ","
+        strr += str(self.configure.leftLine.X) + ","
+        strr += str(self.configure.leftLine.Y) + ","
 
-        strr += str(detector.configure.rightLine.X) + ","
-        strr += str(detector.configure.rightLine.Y) + ","
+        strr += str(self.configure.rightLine.X) + ","
+        strr += str(self.configure.rightLine.Y) + ","
         
-        strr += str(detector.configure.nose.X) + ","
-        strr += str(detector.configure.nose.Y) + ","
+        strr += str(self.configure.nose.X) + ","
+        strr += str(self.configure.nose.Y) + ","
         
-        strr += str(detector.configure.maxi.X) + ","
-        strr += str(detector.configure.maxi.Y) + ","
+        strr += str(self.configure.maxi.X) + ","
+        strr += str(self.configure.maxi.Y) + ","
         
-        strr += str(detector.configure.mini.X) + ","
-        strr += str(detector.configure.mini.Y) + ","
+        strr += str(self.configure.mini.X) + ","
+        strr += str(self.configure.mini.Y) + ","
         
-        strr += str(detector.configure.leftDist) + ","
-        strr += str(detector.configure.rightDist)
-
-        self.ws.send(strr)
+        strr += str(self.configure.leftDist) + ","
+        strr += str(self.configure.rightDist)
+        self.socket.ws.send(strr)
      
     def fill(self, str):
         nums = str.split(',')
         idx = 0
 
-        self.configure.mouseUp = Point(int(nums[idx]), int(nums[idx + 1]))
+        self.configure.mouseUp = Point(float(nums[idx]), float(nums[idx + 1]))
         idx += 2
 
-        self.configure.mouseDown = Point(int(nums[idx]), int(nums[idx + 1]))
+        self.configure.mouseDown = Point(float(nums[idx]), float(nums[idx + 1]))
         idx += 2
         
-        self.configure.rightEyeUp = Point(int(nums[idx]), int(nums[idx + 1]))
+        self.configure.rightEyeUp = Point(float(nums[idx]), float(nums[idx + 1]))
         idx += 2
         
-        self.configure.rightEyeDown = Point(int(nums[idx]), int(nums[idx + 1]))
+        self.configure.rightEyeDown = Point(float(nums[idx]), float(nums[idx + 1]))
         idx += 2
         
-        self.configure.leftEyeUp = Point(int(nums[idx]), int(nums[idx + 1]))
+        self.configure.leftEyeUp = Point(float(nums[idx]), float(nums[idx + 1]))
         idx += 2
         
-        self.configure.leftEyeDown = Point(int(nums[idx]), int(nums[idx + 1]))
+        self.configure.leftEyeDown = Point(float(nums[idx]), float(nums[idx + 1]))
         idx += 2
         
-        self.configure.mouseLeft = Point(int(nums[idx]), int(nums[idx + 1]))
+        self.configure.mouseLeft = Point(float(nums[idx]), float(nums[idx + 1]))
         idx += 2
         
-        self.configure.mouseRight = Point(int(nums[idx]), int(nums[idx + 1]))
+        self.configure.mouseRight = Point(float(nums[idx]), float(nums[idx + 1]))
         idx += 2
         
-        self.configure.leftLine = Point(int(nums[idx]), int(nums[idx + 1]))
+        self.configure.leftLine = Point(float(nums[idx]), float(nums[idx + 1]))
         idx += 2
         
-        self.configure.rightLine = Point(int(nums[idx]), int(nums[idx + 1]))
+        self.configure.rightLine = Point(float(nums[idx]), float(nums[idx + 1]))
         idx += 2
 
-        self.configure.nose = Point(int(nums[idx]), int(nums[idx + 1]))
+        self.configure.nose = Point(float(nums[idx]), float(nums[idx + 1]))
         idx += 2
 
-        self.configure.maxi = Point(int(nums[idx]), int(nums[idx + 1]))
+        self.configure.maxi = Point(float(nums[idx]), float(nums[idx + 1]))
         idx += 2
         
-        self.configure.mini = Point(int(nums[idx]), int(nums[idx + 1]))
+        self.configure.mini = Point(float(nums[idx]), float(nums[idx + 1]))
         idx += 2
         
-        self.configure.leftDist = nums[idx]
+        self.configure.leftDist = float(nums[idx])
         idx += 1
 
-        self.configure.rightDist = nums[idx]
+        self.configure.rightDist = float(nums[idx])
         idx += 1
         
         
@@ -339,10 +338,10 @@ def main():
     # configure =FaceMeshConfigure()
     # configure.calcBoundries()
     # cv2.namedWindow(title)
-    isConfigured = sys.argv[1]
+    isConfigured = str(sys.argv[1])
     print(isConfigured)
         
-    if isConfigured != 'false':
+    if isConfigured == 'true':
 
         while True:
             
@@ -377,9 +376,11 @@ def main():
                 break
         capture.release()
         cv2.destroyAllWindows()
-        detector.convertToSave(detector);
         
         
+    else :
+        detector.fill(isConfigured)
+     
     capture = cv2.VideoCapture(0)
     print("left one ",detector.configure.leftDist)
     print("right one ",detector.configure.rightDist)
@@ -409,6 +410,7 @@ def main():
             break
     capture.release()
     cv2.destroyAllWindows()
+    detector.convertToSave();
     # print("max X is = ",detector.maxi_X,"\nmin X is = ",detector.mini_X,"\nmax Y is = ",detector.maxi_Y,"\nmin Y is = ",detector.mini_Y)
 
 if __name__ == '__main__':

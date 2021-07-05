@@ -23,25 +23,38 @@
 }
 
 .button{
-    @apply focus:outline-none w-full sm:w-auto bg-indigo-700 transition duration-150 ease-in-out hover:bg-indigo-600 rounded text-white px-8 py-3 text-sm mt-6 ;
+    @apply focus:outline-none w-full sm:w-auto  bg-indigo-500 dark:bg-indigo-400 transition duration-500 ease-in-out hover:bg-indigo-400   transform hover:-translate-y-1 hover:scale-90  rounded text-white px-8 py-3 text-sm mt-6 ;
 }
 
 .Textinput{
-    @apply flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none  focus:border-indigo-700 ;
+    @apply flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white rounded-sm dark:bg-opacity-80 text-gray-700 placeholder-gray-400 shadow-3xl text-base focus:outline-none  focus:border-indigo-700 ;
 
 }
 
 .Textarea{
-    @apply inline-flex  items-center px-3 border-t bg-white border-l border-b  border-gray-300 text-gray-500 shadow-sm text-sm;
+    @apply inline-flex  items-center px-3 border-t bg-white border-l border-b dark:bg-opacity-80 border-gray-300 text-gray-500 shadow-3xl text-sm;
 }
 
 .btn{
-    @apply group relative ml-14 mt-4 w-3/5 flex justify-center py-2 px-6  text-sm font-medium rounded-3xl text-white bg-indigo-700 hover:bg-indigo-600 focus:outline-none;
+    @apply group relative ml-24 mt-4 w-2/4 flex justify-center py-2 px-8  text-sm font-medium rounded-2xl text-white bg-indigo-500 dark:bg-indigo-400 transition duration-500 ease-in-out hover:bg-indigo-400 transform hover:-translate-y-1 hover:scale-110  focus:outline-none;
+}
+.confgbtn{
+    @apply group relative  mt-5 w-60 flex justify-center py-2 px-8  text-sm font-medium rounded-xl text-white bg-indigo-500 dark:bg-indigo-400 transition duration-500 ease-in-out hover:bg-indigo-400 transform hover:-translate-y-1 hover:scale-95  focus:outline-none;
+
+}
+.setconfgbtn{
+    @apply group relative ml-60 mt-10  w-2/5 flex justify-center py-2 px-8  text-lg font-medium rounded-lg text-indigo-400 bg-transparent  transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110  focus:outline-none;
+}
+.leftarrow{
+    @apply absolute top-2/4 left-0 px-32 text-5xl cursor-pointer 
+}
+.rightarrow{
+    @apply absolute top-2/4 right-0 px-32 text-5xl cursor-pointer 
 }
 .Text{ 
-    @apply text-gray-400 ml-2 w-full pb-1  mb-4 text-lg font-bold;
+    @apply text-gray-400 dark:text-gray-200 ml-2 w-full pb-1  mb-4 text-lg font-bold;
 }
 
 .SidebarButton{
-    @apply flex w-full justify-between bg-gray-800 text-gray-500 hover:text-gray-300 cursor-pointer items-center ;
+    @apply flex w-full justify-between bg-gray-800  dark:text-gray-200 text-gray-500 hover:text-gray-300 transition duration-500 ease-in-out hover:scale-90 cursor-pointer items-center ;
 }

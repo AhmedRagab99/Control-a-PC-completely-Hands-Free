@@ -21,7 +21,7 @@ const configurationSchema = new mongoose.Schema({
   },
   configuration_points: {
     type: String,
-    default: "false",
+    default: "true",
   },
   user: {
     type: mongoose.Schema.Types.ObjectId,
