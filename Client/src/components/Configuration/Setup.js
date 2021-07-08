@@ -3,6 +3,8 @@ import SideBar from "../SideBar/SideBar";
 import welcome from "../static/office.json";
 import lottie from "lottie-web";
 import Toggle from "../Theme/Toggle";
+import { useHistory } from "react-router-dom";
+import Option1 from "./WebCamOptions/Option1";
 const axios = require("axios");
 
 export default function Setup() {
@@ -10,6 +12,11 @@ export default function Setup() {
 
   const HEIGHT = 320;
   const WIDTH = 350;
+
+  const history = useHistory();
+  const routeChange = (path) => {
+    history.push(path);
+  };
 
   React.useEffect(() => {
     lottie.loadAnimation({
@@ -84,8 +91,14 @@ export default function Setup() {
                   ></video>
                 </div>
 
-                <div className="app__input">
-                  <button className="setconfgbtn" onClick={startVideo}>
+                <div className="flex flex-row">
+                  <button
+                    className="setconfgbtn"
+                    onClick={() => {
+                      startVideo();
+                      routeChange("/option1");
+                    }}
+                  >
                     <span className="absolute left-2 inset-y-0 flex items-center pl-4">
                       Next
                       <svg

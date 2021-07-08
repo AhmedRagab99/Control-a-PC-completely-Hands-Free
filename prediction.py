@@ -24,8 +24,8 @@ def main():
         audio = read()
         word = predict(audio)
         do = action(word)
-        if do is not None:
-            ws.send(do)
+        if do is not None and do in labels:
+            ws.send("*" + do)
         sleep(1)
 
 

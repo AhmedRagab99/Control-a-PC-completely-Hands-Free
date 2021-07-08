@@ -9,7 +9,7 @@ function createWindow() {
     width: 900,
     height: 630,
     show: false,
-    resizable: false,
+    resizable: true,
   });
   const startURL = isDev
     ? "http://localhost:3000"

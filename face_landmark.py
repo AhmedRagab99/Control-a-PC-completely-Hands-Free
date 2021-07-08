@@ -51,7 +51,7 @@ class FaceMeshDetector():
     def UpdateMousePos(self, cx, cy):
         self.newPos.X = (cx - self.configure.mini.X) / (self.configure.maxi.X - self.configure.mini.X) * self.configure.screenWidth
         self.newPos.Y = (cy - self.configure.mini.Y) / (self.configure.maxi.Y - self.configure.mini.Y) * self.configure.screenHight
-        self.socket.ws.send(str(self.newPos.X)+" "+str(self.newPos.Y))
+        self.socket.ws.send("="+str(self.newPos.X)+" "+str(self.newPos.Y))
 
     def CheckRightEyeClose(self, cyRightUp, cyRightDown):
         return abs(self.configure.rightEyeDown.Y - self.configure.rightEyeUp.Y)  - abs(cyRightDown - cyRightUp)
