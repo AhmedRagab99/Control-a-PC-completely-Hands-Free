@@ -37,6 +37,7 @@ export default function Setup() {
       })
       .then((res) => {
         console.log(res.data);
+        routeChange("/option1");
       })
       .catch((err) => console.log(err));
     // navigator.getUserMedia(
@@ -95,8 +96,8 @@ export default function Setup() {
                   <button
                     className="setconfgbtn"
                     onClick={() => {
-                      startVideo();
                       routeChange("/option1");
+                      
                     }}
                   >
                     <span className="absolute left-2 inset-y-0 flex items-center pl-4">

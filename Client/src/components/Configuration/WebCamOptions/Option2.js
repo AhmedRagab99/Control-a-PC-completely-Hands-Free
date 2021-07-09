@@ -26,12 +26,12 @@ export default function Option2() {
 
             <div className="relative sm:max-w-xl sm:mx-auto">
               <div className="absolute inset-0  bg-gradient-to-r from-cyan-400 to-light-blue-500 dark:bg-gray-300 dark:bg-opacity-25  shadow-2xl transform -skew-y-6 sm:skew-y-0 sm:-rotate-6 sm:rounded-3xl"></div>
-              <div className="relative px-3 py-4  bg-gray-100 dark:bg-gray-200  dark:bg-opacity-90 shadow-2xl sm:rounded-3xl sm:p-12">
-                <p id={1} className=" text-gray-400 text-lg px-24 py-4 ">
-                  Raise Your Eyebrow to ...
+              <div className="relative px-3 py-4  bg-gray-100 dark:bg-gray-200  dark:bg-opacity-90 shadow-2xl sm:rounded-3xl sm:p-8">
+                <p id={1} className=" text-gray-400 text-lg px-24 py-2 ">
+                Set Your Own Configuration ...
                 </p>
                 <div className="container">
-                  <Options faceID="2" />
+                  <Options faceID="2" reaction="Raise Your Eyebrow to ..." />
                 </div>
               </div>
             </div>

@@ -22,7 +22,7 @@ export default function VideoCam() {
   const startVideo = () => {
     setPlaying(true);
     axios
-      .get("http://localhost:8080/testface", {
+      .get("http://localhost:8080/face_configure", {
         headers: {
           Authorization: "Bearer " + localStorage.getItem("token"), //the token is a variable which holds the token
         },

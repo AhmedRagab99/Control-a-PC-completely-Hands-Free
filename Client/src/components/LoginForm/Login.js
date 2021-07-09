@@ -18,6 +18,7 @@ export default function Login() {
       .then(function (responce) {
         console.log(responce);
         const data = responce.data;
+        alert("Login successfully")
         localStorage.setItem("token", data.token);
         history.push("/home");
       })

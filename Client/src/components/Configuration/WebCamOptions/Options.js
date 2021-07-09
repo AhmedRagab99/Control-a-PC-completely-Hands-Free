@@ -1,10 +1,23 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
+import { Actions } from "./Actions";
 const axios = require("axios");
 
 export default function Options(props) {
   const [action, setActions] = useState(props.faceID);
   const history = useHistory();
+
+  const [open, setOpen] = useState(false);
+  const [selected_action, setSelected_action] = useState("Show options");
+
+  const toggle = () => setOpen(!open);
+
+  //selected action
+  function handleOnClick(item) {
+    setSelected_action(item.value);
+    setActions(item.id);
+    setOpen(!open);
+  }
 
   const routeChange = () => {
     console.log("asdasdasd");
@@ -41,103 +54,79 @@ export default function Options(props) {
       .catch((err) => console.log(err));
   };
   return (
-    <section class="p-4 h-44 w-96 flex md:flex-row items-center justify-around bg-transparent flex-wrap sm:flex-col">
-      <div class="h-20 w-24 relative cursor-pointer mb-5">
-        <div class="absolute inset-0 bg-gray-100 opacity-25 rounded-lg shadow-2xl"></div>
-        <div class="absolute inset-0 transform  hover:-rotate-45 transition duration-300">
-          <div class="h-full w-full bg-gray-100 dark:bg-gray-200 dark:bg-opacity-30  rounded-lg shadow-xl">
+    <div class="relative">
+      <div className="relative w-auto rounded overflow-hidden shadow-xl">
+        <p className="p-4 text-gray-500">{props.reaction}</p>
+        <div className="border-b-2 m-0"></div>
+        <p className="p-4 text-gray-500">Select Action: </p>
+        <div className="mr-8 ml-4">
+          <div className="relative">
             <button
-              className="confgoptionsbtn"
-              onClick={() => {
-                setActions("1");
-              }}
+              tabIndex={0}
+              className="bg-indigo-300 p-3 rounded text-white shadow-inner w-full focus:outline-none"
+              onClick={() => toggle(!open)}
+              onKeyPress={() => toggle(!open)}
             >
-              <span className="mt-3 ml-14 italic animate-pulse">
-                Left Click
-              </span>
+              <span className="float-left text-white">{selected_action}</span>
+              {open ? (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-5 float-right fill-none  text-white"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 15l7-7 7 7"
+                  />
+                </svg>
+              ) : (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-5 float-right fill-none  text-white"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M19 9l-7 7-7-7"
+                  />
+                </svg>
+              )}
             </button>
-            <div className="ml-9 animate-pulse">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="h-5 w-5 fill-current text-gray-400 "
-                viewBox="0 0 20 20"
-              >
-                <path
-                  fill-rule="evenodd"
-                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm.707-10.293a1 1 0 00-1.414-1.414l-3 3a1 1 0 000 1.414l3 3a1 1 0 001.414-1.414L9.414 11H13a1 1 0 100-2H9.414l1.293-1.293z"
-                  clip-rule="evenodd"
-                />
-              </svg>
-            </div>
           </div>
-        </div>
-      </div>
-      <div class="h-20 w-24 relative cursor-pointer mb-5">
-        <div class="absolute inset-0 bg-white opacity-25 rounded-lg shadow-2xl"></div>
-        <div class="absolute inset-0 transform  hover:scale-75 transition duration-300">
-          <div class="h-full w-full bg-gray-100 dark:bg-gray-200 dark:bg-opacity-30 rounded-lg shadow-xl">
-            <button
-              className="confgoptionsbtn"
-              onClick={() => {
-                setActions("3");
-              }}
-            >
-              <span className="mt-3 ml-14 italic animate-pulse">
-                Double Click
-              </span>
-            </button>
-            <div className="ml-9 animate-pulse">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="h-5 w-5 fill-current text-gray-400 "
-                viewBox="0 0 20 20"
-                fill="currentColor"
-              >
-                <path
-                  fill-rule="evenodd"
-                  d="M15.707 15.707a1 1 0 01-1.414 0l-5-5a1 1 0 010-1.414l5-5a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 010 1.414zm-6 0a1 1 0 01-1.414 0l-5-5a1 1 0 010-1.414l5-5a1 1 0 011.414 1.414L5.414 10l4.293 4.293a1 1 0 010 1.414z"
-                  clip-rule="evenodd"
-                />
-              </svg>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="h-20 w-24 relative cursor-pointer mb-5">
-        <div class="absolute inset-0 bg-white opacity-25 rounded-lg shadow-2xl"></div>
-        <div class="absolute inset-0 transform  hover:rotate-45 transition duration-300">
-          <div class="h-full w-full bg-gray-100 dark:bg-gray-200 dark:bg-opacity-30 rounded-lg shadow-xl">
-            <button
-              className="confgoptionsbtn"
-              onClick={() => {
-                setActions("2");
-              }}
-            >
-              <span className="mt-3 ml-14 italic animate-pulse">
-                Right Click
-              </span>
-            </button>
-            <div className="ml-9 animate-pulse">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="h-5 w-5 fill-current text-gray-400"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-              >
-                <path
-                  fill-rule="evenodd"
-                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707l-3-3a1 1 0 00-1.414 1.414L10.586 9H7a1 1 0 100 2h3.586l-1.293 1.293a1 1 0 101.414 1.414l3-3a1 1 0 000-1.414z"
-                  clip-rule="evenodd"
-                />
-              </svg>
-            </div>
+          <div class="rounded overflow-hidden shadow-md my-2 relative pin-t pin-l">
+            {open && (
+              <ul className="h-32 overflow-y-scroll ">
+                {Actions.map((item) => (
+                  <li
+                    className="p-2 block text-gray-500 hover:bg-indigo-100 cursor-pointer focus:outline-none"
+                    key={item.id}
+                  >
+                    <button
+                      className="focus:outline-none"
+                      type="button"
+                      onClick={() => handleOnClick(item)}
+                    >
+                      <span>{item.value}</span>
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
         </div>
       </div>
 
       <div className="flex flex-row">
         <button
-          className="setconfgbtn animate-bounce "
+          className="setconfgbtn right-10 mt-4 mb-2  animate-bounce "
           onClick={() => {
             reverseRouteChange();
           }}
@@ -159,12 +148,13 @@ export default function Options(props) {
           </span>
         </button>
         <button
-          className="setconfgbtn animate-bounce "
+          className="setconfgbtn mt-4 mb-2  animate-bounce "
           onClick={() => {
             save();
+            routeChange();
           }}
         >
-          <span className="absolute left-32 flex items-center pl-4">
+          <span className="absolute left-40 flex items-center pl-4">
             next
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -183,6 +173,6 @@ export default function Options(props) {
           </span>
         </button>
       </div>
-    </section>
+    </div>
   );
 }

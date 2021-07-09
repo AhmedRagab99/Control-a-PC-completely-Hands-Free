@@ -59,43 +59,71 @@ console.log(screen.width + "x" + screen.height);
 const socketConnection = async (req, res) => {
   socket.on("connect", function (connection) {
     console.log("New Connection!!");
-
+    
+  
     connection.on("message", async function (message) {
       console.log("Received Message: " + message.utf8Data);
       const mouse = robotjs.getMousePos();
+      var action= "";
 
+      if (message.utf8Data === "1"){
+        await Configuration.findOne({ user: req.user }, (err, val) => {
+          
+          action = val.configuration_actions[1];
+          console.log(action,"from first socket")
+        });
+      }
+      if (message.utf8Data === "2"){
+        await Configuration.findOne({ user: req.user }, (err, val) => {
+          
+          action =val.configuration_actions[2];
+          console.log(action,"from second ")
+        });
+      }
+      if (message.utf8Data === "3"){
+        await Configuration.findOne({ user: req.user }, (err, val) => {
+          
+          action = val.configuration_actions[3];
+          console.log(action," third one ")
+        });
+      }
+     
       if (message.utf8Data.length > 50) {
         const newConfig = await Configuration.updateOne(
           { user: req.user },
           { configuration_points: message.utf8Data }
         );
-      } else if (message.utf8Data === "1") {
+      } else if (action === 1) {
+    
         robotjs.mouseClick("left");
         console.log("mouse left clicked");
-      } else if (message.utf8Data === "2") {
+      } else if (action=== 2) {
         robotjs.mouseClick("right");
         console.log("mouse right clicked");
-      } else if (message.utf8Data === "3") {
+      } else if (action=== 3) {
         robotjs.mouseClick("left", true);
         console.log("mouse double left clicked");
-      } else if (message.utf8Data.includes("=")) {
+      } else if (message.utf8Data[0] === "=") {
         let str = message.utf8Data;
 
         str = str.replace("=", "");
+        console.log("the new coordinates is ", str);
+
         const { posX, posY } = robotjs.getMousePos();
-        const coordinates = message.utf8Data.toString().split(" ");
+        const coordinates = str.toString().split(" ");
 
         if (
           Math.abs(posX - coordinates[0] < 30) &&
           Math.abs(posY - coordinates[1] < 30)
         )
-          return;
+        return;
 
-        robotjs.moveMouseSmooth(
-          screen.width - coordinates[0],
-          coordinates[1],
-          0.8
-        );
+          robotjs.moveMouseSmooth(
+            screen.width - coordinates[0],
+            coordinates[1],
+            0.8
+          );
+    
       } else if (message.utf8Data.includes("*")) {
         let word = message.utf8Data;
         word = word.replace("*", "");
@@ -126,10 +154,10 @@ const socketConnection = async (req, res) => {
             command = val.configuration_actions.left;
           });
         else if (word === "on")
-            await Configuration.findOne({ user: req.user }, (err, val) => {
-              console.log(val.configuration_actions.on);
-              command = val.configuration_actions.on;
-            });
+          await Configuration.findOne({ user: req.user }, (err, val) => {
+            console.log(val.configuration_actions.on);
+            command = val.configuration_actions.on;
+          });
         else if (word === "off")
           await Configuration.findOne({ user: req.user }, (err, val) => {
             console.log(val.configuration_actions.off);
@@ -146,7 +174,7 @@ const socketConnection = async (req, res) => {
             command = val.configuration_actions.go;
           });
         if (command.includes("."))
-          exec("open " + "\"" + `${command}` + "\"", (error, stdout, stderr) => {
+          exec("open " + '"' + `${command}` + '"', (error, stdout, stderr) => {
             if (error) {
               console.log(`error: ${error.message}`);
               return;
@@ -159,7 +187,7 @@ const socketConnection = async (req, res) => {
           });
         else
           exec(
-            "open -a " + "\"" + `${command}` + "\"",
+            "open -a " + '"' + `${command}` + '"',
             (error, stdout, stderr) => {
               if (error) {
                 console.log(`error: ${error.message}`);

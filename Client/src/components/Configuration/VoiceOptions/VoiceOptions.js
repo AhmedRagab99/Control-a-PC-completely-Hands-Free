@@ -5,7 +5,6 @@ import { useHistory } from "react-router-dom";
 import Options from "./Options";
 
 export default function VoiceOptions() {
-  const [actions, setActions] = React.useState("0");
   const history = useHistory();
   const routeChange = (path) => {
     history.push(path);
@@ -27,8 +26,8 @@ export default function VoiceOptions() {
 
             <div className="relative sm:max-w-xl sm:mx-auto">
               <div className="absolute inset-0  bg-gradient-to-r from-cyan-400 to-light-blue-500 dark:bg-gray-300 dark:bg-opacity-25  shadow-2xl transform -skew-y-6 sm:skew-y-0 sm:-rotate-6 sm:rounded-3xl"></div>
-              <div className="relative px-3 py-4  bg-gray-100 dark:bg-gray-200  dark:bg-opacity-90 shadow-2xl sm:rounded-3xl sm:p-12">
-                <p id={2} className=" text-gray-400 text-lg px-24 py-4 ">
+              <div className="relative px-3 py-4  bg-gray-100 dark:bg-gray-200  dark:bg-opacity-90 shadow-2xl sm:rounded-3xl sm:p-8">
+                <p id={2} className=" text-gray-400 text-lg px-24 py-2 ">
                   Voice Configurations...
                 </p>
                 <div className="container">
@@ -37,8 +36,8 @@ export default function VoiceOptions() {
 
                 <div className="flex flex-row">
                   <button
-                    className="setconfgbtn animate-bounce "
-                    onClick={() => routeChange("/option2")}
+                    className="setconfgbtn animate-bounce mt-2 "
+                    onClick={() => routeChange("/option3")}
                   >
                     <span className="absolute  flex items-center ">
                       <svg
