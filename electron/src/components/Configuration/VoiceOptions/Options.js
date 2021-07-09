@@ -2,32 +2,55 @@ import React from 'react'
 import { useState } from 'react';
 import { Actions } from './Actions'
 
+const axios = require("axios");
+
 export default function Options() {
     const [file, setFile] = React.useState("");
-    const [path, setPath] = React.useState('/')
 
-    // Handles file upload event and updates state
     function handleUpload(event) {
         setFile(event.target.files[0]);
-        setPath(file.path)
-
-        // Add code here to upload file to server
-        // ...
+        save(event)
+       
     }
     //actions
     const [open, setOpen] = useState(false);
-    const [selection, setSelection] = useState("0");
+
+    
+    const [selection, setSelection] = useState("yes");
+
+    //deh el kelmaaa
     const [action, setAction] = useState('Show options');
     
     const toggle = () => setOpen(!open);
 
     //selected action
     function handleOnClick(item) {
-        setSelection(item.id)
+        setSelection(item.value)
         setAction(item.value)
         setOpen(!open)
     }
 
+
+
+    const save = (event) => {
+        axios
+          .post(
+            "http://localhost:8080/set_face_action",
+            {
+              from: selection,
+              to: event.target.files[0].path,
+            },
+            {
+              headers: {
+                Authorization: "Bearer " + localStorage.getItem("token"), //the token is a variable which holds the token
+              },
+            }
+          )
+          .then((res) => {
+            console.log(res.data);
+          })
+          .catch((err) => console.log(err));
+      };
 
 
     return (

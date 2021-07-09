@@ -2,6 +2,7 @@ import React from 'react'
 import { createPopper } from "@popperjs/core";
 import { useHistory } from "react-router-dom";
 import { Link } from 'react-router-dom'
+import img from './1.png'
 export default function SideBar() {
     const history = useHistory();
     const [dropdownPopoverShow, setDropdownPopoverShow] = React.useState(false);
@@ -24,7 +25,7 @@ export default function SideBar() {
                 <div className="px-8">
                     <div className="flex flex-wrap justify-center">
                         <div className="w-full sm:w-full px-4">
-                            <img src="https://www.creative-tim.com/learning-lab/tailwind-starter-kit/img/team-4-470x470.png" alt="..." className="shadow-lg rounded-full max-w-full h-auto align-middle border-none" />
+                            <img src={img} alt="..." className="shadow-lg rounded-full max-w-full h-auto align-middle border-none" />
                         </div>
                     </div>
                     <ul className="mt-7">
